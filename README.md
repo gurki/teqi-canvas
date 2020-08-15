@@ -2,4 +2,4 @@
 A minimal 3D-graphics starting point
 
 ## About
-Uses the OGG-stack (OpenGL / GLEW / GLFW) to create a blank window and load shaders.
+Uses `OpenGL`/`GLEW`/`GLFW` to create a blank **window**, load **shaders** and offer basic **mouse** and **keyboard** queries.

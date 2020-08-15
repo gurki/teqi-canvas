@@ -13,12 +13,12 @@ add_subdirectory( dependencies )
 add_compile_definitions( ROOT_PATH="${CMAKE_CURRENT_SOURCE_DIR}/" )
 
 add_library( ${PROJECT_NAME} STATIC
-    src/canvas/window.cpp 
-    src/canvas/shader.cpp
-    src/canvas/shaderbuilder.cpp
-    src/canvas/shaderprogram.cpp
-    src/canvas/keys.cpp
-    src/canvas/mouse.cpp
+    src/window.cpp 
+    src/shader.cpp
+    src/shaderbuilder.cpp
+    src/shaderprogram.cpp
+    src/keys.cpp
+    src/mouse.cpp
 )
 
 add_library( ${PROJECT_NAME}::${PROJECT_NAME} ALIAS ${PROJECT_NAME} )

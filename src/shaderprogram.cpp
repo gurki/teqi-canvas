@@ -20,7 +20,7 @@ void checkLinkError( const uint32_t programId )
 
     glGetProgramInfoLog( programId, logSize, nullptr, infoLog );
 
-    throw std::runtime_error { fmt::format( 
+    throw std::runtime_error { fmt::format(
         "shader link error: {}", infoLog
     )};
 }
@@ -38,10 +38,10 @@ ShaderProgram::ShaderProgram( const std::vector<Shader>& shaders ) :
     checkLinkError( id_ );
 
     glUseProgram( id_ );
-    
+
     uint32_t cameraBlockId = glGetUniformBlockIndex( id_, "Camera" );
     uint32_t lightsBlockId = glGetUniformBlockIndex( id_, "Lights" );
-    
+
     if ( cameraBlockId != GL_INVALID_INDEX ) {
         glUniformBlockBinding( id_, cameraBlockId, 0 );
     }
@@ -133,7 +133,7 @@ void ShaderProgram::setMat3( const std::string& name, const glm::mat3& mat ) con
 ////////////////////////////////////////////////////////////////////////////////
 void ShaderProgram::setMat4( const std::string& name, const glm::mat4& mat ) const {
     glUniformMatrix4fv(
-        glGetUniformLocation( id_, name.c_str() ), 1, GL_FALSE, &mat[ 0 ][ 0 ] 
+        glGetUniformLocation( id_, name.c_str() ), 1, GL_FALSE, &mat[ 0 ][ 0 ]
     );
 }
 

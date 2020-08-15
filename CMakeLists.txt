@@ -13,7 +13,7 @@ add_subdirectory( dependencies )
 add_compile_definitions( ROOT_PATH="${CMAKE_CURRENT_SOURCE_DIR}/" )
 
 add_library( ${PROJECT_NAME} STATIC
-    src/window.cpp 
+    src/window.cpp
     src/shader.cpp
     src/shaderbuilder.cpp
     src/shaderprogram.cpp
@@ -23,7 +23,7 @@ add_library( ${PROJECT_NAME} STATIC
 
 add_library( ${PROJECT_NAME}::${PROJECT_NAME} ALIAS ${PROJECT_NAME} )
 
-target_compile_features( ${PROJECT_NAME} 
+target_compile_features( ${PROJECT_NAME}
     PUBLIC
         cxx_std_17  #  std::optional, nested namespaces
     PRIVATE
@@ -36,13 +36,13 @@ target_compile_features( ${PROJECT_NAME}
         cxx_inline_namespaces
 )
 
-target_include_directories( ${PROJECT_NAME} 
-    PUBLIC 
+target_include_directories( ${PROJECT_NAME}
+    PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
         $<INSTALL_INTERFACE:include>
 )
 
-target_link_libraries( ${PROJECT_NAME} 
+target_link_libraries( ${PROJECT_NAME}
     PUBLIC
         glfw
         libglew_static
@@ -62,11 +62,11 @@ install(
 
 #-------------------------------------------------------------------------------
 
-add_executable( ${PROJECT_NAME}-demo 
+add_executable( ${PROJECT_NAME}-demo
     demo/main.cpp
 )
 
 target_link_libraries( ${PROJECT_NAME}-demo
-    PRIVATE 
+    PRIVATE
         ${PROJECT_NAME}::${PROJECT_NAME}
 )

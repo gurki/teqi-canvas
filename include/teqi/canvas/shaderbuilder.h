@@ -1,18 +1,18 @@
-#pragma once 
+#pragma once
 
 #include "teqi/canvas/shaderprogram.h"
 
 namespace tq {
 
 
-class ShaderBuilder 
+class ShaderBuilder
 {
     public:
 
         ShaderBuilder() = default;
 
-        ShaderBuilder& load( 
-            std::string_view filename, 
+        ShaderBuilder& load(
+            std::string_view filename,
             const Shader::Type
         );
 

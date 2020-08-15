@@ -12,15 +12,15 @@ FetchContent_Declare( ${MODULE_NAME}
 FetchContent_GetProperties( ${MODULE_NAME} )
 
 if ( NOT ${${MODULE_NAME}_POPULATED} )
-    
+
     message( "fetching ${MODULE_URL} @${MODULE_VERSION} ..." )
 
     FetchContent_Populate( ${MODULE_NAME} )
-    
-    add_subdirectory( 
+
+    add_subdirectory(
         ${${MODULE_NAME}_SOURCE_DIR}
         ${${MODULE_NAME}_BINARY_DIR}
-        EXCLUDE_FROM_ALL 
+        EXCLUDE_FROM_ALL
     )
-    
+
 endif()

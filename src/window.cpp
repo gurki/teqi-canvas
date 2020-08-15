@@ -5,9 +5,9 @@ namespace tq {
 
 
 ////////////////////////////////////////////////////////////////////////////////
-Window::Window( 
+Window::Window(
     const GLint width,
-    const GLint height, 
+    const GLint height,
     std::string_view title,
     const uint8_t samples ) :
     width_( width ),
@@ -16,7 +16,7 @@ Window::Window(
     if ( ! glfwInit() ) {
         fmt::print( "failed to initialize GLFW \n" );
         return;
-    }    
+    }
 
     glfwWindowHint( GLFW_CONTEXT_VERSION_MAJOR, 4 );
     glfwWindowHint( GLFW_CONTEXT_VERSION_MINOR, 1 );
@@ -41,9 +41,7 @@ Window::Window(
     glfwSetFramebufferSizeCallback( handle_, resizeCallback );
     glfwSetCursorPosCallback( handle_, mouseCallback );
     glfwSetScrollCallback( handle_, scrollCallback );
-    
-    // glfwSetInputMode( handle_, GLFW_CURSOR, GLFW_CURSOR_DISABLED );
-    glfwSetInputMode( handle_, GLFW_STICKY_KEYS, GL_TRUE );
+
     glewExperimental = GL_TRUE;
 
     if ( GLEW_OK != glewInit() ) {
@@ -91,7 +89,7 @@ void Window::setTitle( const std::string& title ) const {
 
 
 ////////////////////////////////////////////////////////////////////////////////
-void Window::checkProperties() const 
+void Window::checkProperties() const
 {
     int width, height;
     glfwGetFramebufferSize( handle_, &width, &height);
@@ -122,7 +120,7 @@ void Window::onResize( const resize_callback_t& callback ) {
 
 
 ////////////////////////////////////////////////////////////////////////////////
-void Window::resizeCallback( GLFWwindow* handle, int width, int height ) 
+void Window::resizeCallback( GLFWwindow* handle, int width, int height )
 {
     glViewport( 0, 0, width, height );
 
@@ -135,10 +133,10 @@ void Window::resizeCallback( GLFWwindow* handle, int width, int height )
 
 
 ////////////////////////////////////////////////////////////////////////////////
-void Window::mouseCallback( GLFWwindow* handle, double posX, double posY ) 
+void Window::mouseCallback( GLFWwindow* handle, double posX, double posY )
 {
     auto* window = reinterpret_cast<Window*>( glfwGetWindowUserPointer( handle ) );
-    
+
     if ( window->mouseCallback_ ) {
         window->mouseCallback_( posX, posY );
     }
@@ -146,7 +144,7 @@ void Window::mouseCallback( GLFWwindow* handle, double posX, double posY )
 
 
 ////////////////////////////////////////////////////////////////////////////////
-void Window::scrollCallback( GLFWwindow* handle, double offsetX, double offsetY ) 
+void Window::scrollCallback( GLFWwindow* handle, double offsetX, double offsetY )
 {
     auto* window = reinterpret_cast<Window*>( glfwGetWindowUserPointer( handle ) );
 

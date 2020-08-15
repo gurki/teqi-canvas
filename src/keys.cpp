@@ -12,6 +12,8 @@ Keys::Keys( Window* window ) :
     window_( window )
 {
     assert( window );
+    
+    glfwSetInputMode( window_->handle(), GLFW_STICKY_KEYS, GL_TRUE );
 }
 
 

@@ -8,7 +8,7 @@ namespace tq {
 
 struct Shader
 {
-    enum class Type : GLenum 
+    enum class Type : GLenum
     {
         Vertex = GL_VERTEX_SHADER,
         Fragment = GL_FRAGMENT_SHADER,

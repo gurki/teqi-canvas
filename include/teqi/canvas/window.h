@@ -13,9 +13,9 @@ class Window
 {
     public:
 
-        Window( 
-            const GLint width, 
-            const GLint height, 
+        Window(
+            const GLint width,
+            const GLint height,
             std::string_view title = "window",
             const uint8_t samples = 8
         );

@@ -1,4 +1,4 @@
-#pragma once 
+#pragma once
 
 #include <glm/vec2.hpp>
 
@@ -15,7 +15,7 @@ class Mouse
 
         void lock() const;
         void unlock() const;
-        
+
         [[nodiscard]] glm::vec2 cursorPosition() const;
         [[nodiscard]] bool pressed( const uint32_t button ) const;
         [[nodiscard]] bool released( const uint32_t button ) const;

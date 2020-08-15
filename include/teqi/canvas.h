@@ -1,4 +1,4 @@
-#pragma once 
+#pragma once
 
 #include "teqi/canvas/window.h"
 #include "teqi/canvas/shader.h"

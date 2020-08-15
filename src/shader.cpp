@@ -40,9 +40,9 @@ void checkCompileError( const uint32_t shaderId )
     char infoLog[ maxLogSize ];
 
     glGetShaderInfoLog( shaderId, maxLogSize, nullptr, infoLog );
-    
-    const auto msg = fmt::format( 
-        "shader compilation error for shader {}: {}", shaderId, infoLog 
+
+    const auto msg = fmt::format(
+        "shader compilation error for shader {}: {}", shaderId, infoLog
     );
 
     fmt::print( "{}", msg );

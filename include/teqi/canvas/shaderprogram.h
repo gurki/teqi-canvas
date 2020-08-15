@@ -15,7 +15,7 @@ struct ShaderProgram {
     explicit ShaderProgram( const std::vector<Shader>& shaders );
 
     void use() const;
-    
+
     void setBool( const std::string& name, bool value ) const;
     void setInt( const std::string& name, int value ) const;
     void setFloat( const std::string& name, float value ) const;
@@ -31,7 +31,7 @@ struct ShaderProgram {
 
     [[nodiscard]] uint32_t id() const { return id_; }
     [[nodiscard]] bool valid() const { return id_ > 0; }
-    
+
     private:
 
         uint32_t id_ { 0 };

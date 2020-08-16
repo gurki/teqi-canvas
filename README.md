@@ -2,7 +2,7 @@
 A minimal 3D-graphics starting point
 
 ## About
-Uses `OpenGL`/`GLEW`/`GLFW` to create a blank **window**, load **shaders** and offer basic **mouse** and **keyboard** queries.
+Uses `OpenGL`/`GLEW`/`GLFW` to quickly create a render **window**, load **shaders** and allow basic **mouse** and **keyboard** queries.
 
 
 ```cpp

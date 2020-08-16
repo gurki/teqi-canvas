@@ -10,10 +10,11 @@ project(
 
 add_subdirectory( dependencies )
 
+add_compile_definitions( TQ_CANVAS_ROOT="${CMAKE_CURRENT_SOURCE_DIR}/" )
+
 add_library( ${PROJECT_NAME} STATIC
     src/window.cpp
     src/shader.cpp
-    src/shaderbuilder.cpp
     src/shaderprogram.cpp
     src/keys.cpp
     src/mouse.cpp

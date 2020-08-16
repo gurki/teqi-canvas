@@ -1,5 +1,5 @@
 #include "teqi/canvas/window.h"
-#include <fmt/core.h>
+#include <fmt/color.h>
 
 namespace tq {
 
@@ -93,11 +93,37 @@ void Window::checkProperties() const
 {
     int width, height;
     glfwGetFramebufferSize( handle_, &width, &height);
-    fmt::print( "framebuffer size width: {}, height: {} \n", width, height );
+
+    fmt::print(
+        fmt::fg( fmt::color::dark_gray ),
+        "framebuffer size: ({}, {}) \n",
+        width, height
+    );
 
     float xscale, yscale;
     glfwGetWindowContentScale( handle_, &xscale, &yscale);
-    fmt::print( "window content scale x: {}, y: {} \n", xscale, yscale );
+
+    fmt::print(
+        fmt::fg( fmt::color::dark_gray ),
+        "window content scale: ({}, {}) \n",
+        xscale, yscale
+    );
+
+    const GLubyte* renderer = glGetString( GL_RENDERER );
+
+    fmt::print(
+        fmt::fg( fmt::color::dark_gray ),
+        "renderer: {} \n",
+        renderer
+    );
+
+    const GLubyte* version = glGetString( GL_VERSION );
+
+    fmt::print(
+        fmt::fg( fmt::color::dark_gray ),
+        "version: {} \n",
+        version
+    );
 }
 
 

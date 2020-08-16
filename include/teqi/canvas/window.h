@@ -3,6 +3,7 @@
 #include <gl/glew.h>
 #include <glfw/glfw3.h>
 
+#include <glm/vec2.hpp>
 #include <string_view>
 #include <functional>
 
@@ -34,6 +35,7 @@ class Window
         GLFWwindow* handle() const { return handle_; }
         [[nodiscard]] uint32_t width() const { return width_; }
         [[nodiscard]] uint32_t height() const { return height_; }
+        [[nodiscard]] glm::vec2 size() const { return { width_, height_ }; }
         [[nodiscard]] bool aboutToClose() const;
 
         using mouse_callback_t = std::function<void( const double, const double )>;

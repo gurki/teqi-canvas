@@ -1,5 +1,5 @@
 #include "teqi/canvas/shaderprogram.h"
-#include <fmt/core.h>
+#include <fmt/color.h>
 #include <stdexcept>
 
 namespace tq {
@@ -20,16 +20,30 @@ void checkLinkError( const uint32_t programId )
 
     glGetProgramInfoLog( programId, logSize, nullptr, infoLog );
 
-    throw std::runtime_error { fmt::format(
-        "shader link error: {}", infoLog
-    )};
+    const auto msg = fmt::format(
+        fmt::fg( fmt::color::dark_red ),
+        "shader link error: {}",
+        infoLog
+    );
+
+    fmt::print( "{}", msg );
+    throw std::runtime_error( msg );
 }
 
 
 ////////////////////////////////////////////////////////////////////////////////
-ShaderProgram::ShaderProgram( const std::vector<Shader>& shaders ) :
-    id_ { glCreateProgram() }
+ShaderProgram::ShaderProgram(
+    const std::string& root,
+    const std::vector<std::string>& names )
 {
+    std::vector<Shader> shaders;
+
+    for ( const auto& name : names ) {
+        shaders.emplace_back( root + name );
+    }
+
+    id_ = glCreateProgram();
+
     for ( const auto& shader : shaders ) {
         glAttachShader( id_, shader.id() );
     }
@@ -37,18 +51,17 @@ ShaderProgram::ShaderProgram( const std::vector<Shader>& shaders ) :
     glLinkProgram( id_ );
     checkLinkError( id_ );
 
-    glUseProgram( id_ );
+    fmt::print(
+        fmt::fg( fmt::color::light_green ),
+        "linked shader program {} with {} shaders \n",
+        id_, shaders.size()
+    );
+}
 
-    uint32_t cameraBlockId = glGetUniformBlockIndex( id_, "Camera" );
-    uint32_t lightsBlockId = glGetUniformBlockIndex( id_, "Lights" );
 
-    if ( cameraBlockId != GL_INVALID_INDEX ) {
-        glUniformBlockBinding( id_, cameraBlockId, 0 );
-    }
-
-    if ( lightsBlockId != GL_INVALID_INDEX ) {
-        glUniformBlockBinding( id_, lightsBlockId, 1 );
-    }
+////////////////////////////////////////////////////////////////////////////////
+ShaderProgram::~ShaderProgram() {
+    glDeleteProgram( id_ );
 }
 
 
@@ -135,6 +148,37 @@ void ShaderProgram::setMat4( const std::string& name, const glm::mat4& mat ) con
     glUniformMatrix4fv(
         glGetUniformLocation( id_, name.c_str() ), 1, GL_FALSE, &mat[ 0 ][ 0 ]
     );
+}
+
+
+////////////////////////////////////////////////////////////////////////////////
+bool ShaderProgram::bindUniformBlock(
+    const std::string& name,
+    const uint32_t location ) const
+{
+    uint32_t blockId = glGetUniformBlockIndex( id_, name.c_str() );
+
+    if ( blockId != GL_INVALID_INDEX ) {
+        glUniformBlockBinding( id_, blockId, location );
+        return true;
+    }
+
+    return false;
+}
+
+
+////////////////////////////////////////////////////////////////////////////////
+ShaderProgram::ShaderProgram( ShaderProgram&& other ) noexcept :
+    id_ ( other.id_ )
+{
+    other.id_ = 0;
+}
+
+
+////////////////////////////////////////////////////////////////////////////////
+ShaderProgram& ShaderProgram::operator=( ShaderProgram&& other ) noexcept {
+    std::swap( id_, other.id_ );
+    return *this;
 }
 
 

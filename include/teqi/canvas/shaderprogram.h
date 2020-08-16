@@ -4,15 +4,18 @@
 
 #include <glm/glm.hpp>
 #include <vector>
-#include <memory>
 
 namespace tq {
 
 
-struct ShaderProgram {
-
+struct ShaderProgram
+{
     ShaderProgram() = default;
-    explicit ShaderProgram( const std::vector<Shader>& shaders );
+    ShaderProgram(
+        const std::string& root,
+        const std::vector<std::string>& names
+     );
+    ~ShaderProgram();
 
     void use() const;
 
@@ -29,8 +32,16 @@ struct ShaderProgram {
     void setMat3( const std::string& name, const glm::mat3& mat ) const;
     void setMat4( const std::string& name, const glm::mat4& mat ) const;
 
+    bool bindUniformBlock( const std::string& name, const uint32_t location ) const;
+
     [[nodiscard]] uint32_t id() const { return id_; }
     [[nodiscard]] bool valid() const { return id_ > 0; }
+
+    ShaderProgram( const ShaderProgram& ) = delete;
+    ShaderProgram& operator=( const ShaderProgram& ) = delete;
+
+    ShaderProgram( ShaderProgram&& ) noexcept;
+    ShaderProgram& operator=( ShaderProgram&& other ) noexcept;
 
     private:
 

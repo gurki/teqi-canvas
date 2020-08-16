@@ -8,5 +8,6 @@ uniform vec2 relMousePos;
 
 void main()
 {
-    fragColor = vec4( relMousePos * ( fragPos + 0.5 ), 0, 1 );
+    float k = 0.5 - distance( relMousePos, vec2( 0.5 ) );
+    fragColor = vec4( smoothstep( -0.1, 0.4, k ) * ( fragPos + 0.5 ), 0, 1 );
 }

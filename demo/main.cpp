@@ -8,7 +8,10 @@ int main( int argc, char* argv[] )
     tq::Mouse mouse( &window );
 
     tq::ShaderProgram shader( TQ_CANVAS_ROOT "res/shader/", { "flat.vs", "flat.fs" } );
+    shader.use();
+
     const GLuint vao = tq::createQuad();
+    glBindVertexArray( vao );
 
     while ( ! window.aboutToClose() )
     {
@@ -16,16 +19,12 @@ int main( int argc, char* argv[] )
             window.close();
         }
 
-        glClearColor( 0.2f, 0.2f, 0.2f, 1.0f );
-        glClear( GL_COLOR_BUFFER_BIT );
-
         const glm::vec2 relMousePos = mouse.cursorPosition() / window.size();
         shader.setVec2( "relMousePos", relMousePos );
-        shader.use();
 
-        glBindVertexArray( vao );
+        glClearColor( 0.2f, 0.2f, 0.2f, 1.0f );
+        glClear( GL_COLOR_BUFFER_BIT );
         glDrawElements( GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0 );
-        glBindVertexArray( 0 );
 
         window.finishFrame();
     }

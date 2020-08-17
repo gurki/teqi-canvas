@@ -1,33 +1,31 @@
 #include "teqi/canvas/shaderprogram.h"
-#include <fmt/color.h>
+#include "teqi/canvas/utility.h"
+
 #include <stdexcept>
 
 namespace tq {
 
 
 ////////////////////////////////////////////////////////////////////////////////
-void checkLinkError( const uint32_t programId )
+bool checkLinkError( const uint32_t programId )
 {
     int success;
     glGetProgramiv( programId, GL_LINK_STATUS, &success );
 
     if ( success ) {
-        return;
+        return true;
     }
 
     const int logSize = 1024;
     char infoLog[ logSize ];
 
     glGetProgramInfoLog( programId, logSize, nullptr, infoLog );
-
-    const auto msg = fmt::format(
-        fmt::fg( fmt::color::dark_red ),
-        "shader link error: {}",
-        infoLog
-    );
+    const auto msg = fmt::format( fg_error, "shader link error: {}", infoLog );
 
     fmt::print( "{}", msg );
     throw std::runtime_error( msg );
+
+    return false;
 }
 
 
@@ -49,11 +47,13 @@ ShaderProgram::ShaderProgram(
     }
 
     glLinkProgram( id_ );
-    checkLinkError( id_ );
+
+    if ( ! checkLinkError( id_ ) ) {
+        return;
+    }
 
     fmt::print(
-        fmt::fg( fmt::color::light_green ),
-        "linked shader program {} with {} shaders \n",
+        fg_success, "linked shader program {} with {} shaders \n",
         id_, shaders.size()
     );
 }

@@ -1,6 +1,9 @@
 #pragma once
 
 #include <gl/glew.h>
+#include <glm/vec2.hpp>
+#include <glm/vec3.hpp>
+#include <fmt/color.h>
 
 namespace tq {
 
@@ -49,10 +52,10 @@ inline void drawQuad( const glm::vec2& pos, const glm::vec2& size )
     };
 
     const std::vector<glm::vec3> vertices = {
-        { pos.x, pos.y, 0 },
-        { pos.x + size.x, pos.y, 0 },
-        { pos.x + size.x, pos.y + size.y, 0 },
-        { pos.x, pos.y + size.y, 0 }
+        { pos.x, pos.y, 0.f },
+        { pos.x + size.x, pos.y, 0.f },
+        { pos.x + size.x, pos.y + size.y, 0.f },
+        { pos.x, pos.y + size.y, 0.f }
     };
 
     createGeometryBuffer( vertices, indices, vao, vbo, ibo );
@@ -61,6 +64,13 @@ inline void drawQuad( const glm::vec2& pos, const glm::vec2& size )
     glDrawElements( GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0 );
     glBindVertexArray( 0 );
 }
+
+
+static const fmt::text_style fg_subtle = fmt::fg( fmt::color::dark_gray );
+static const fmt::text_style fg_info = fmt::fg( fmt::color::light_sky_blue );
+static const fmt::text_style fg_success = fmt::fg( fmt::color::light_green );
+static const fmt::text_style fg_warning = fmt::fg( fmt::color::light_yellow );
+static const fmt::text_style fg_error = fmt::fg( fmt::color::indian_red );
 
 
 }   //  ::tq

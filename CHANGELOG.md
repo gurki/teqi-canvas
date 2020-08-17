@@ -10,6 +10,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Changed
 - Replace unit quad utility by simplified `drawQuad()` call
+- Add default output colors to utility
+
+### Fixed
+- Don't show success messages after void asserts
 
 
 ## [v1.0.1] - 2020-08-16

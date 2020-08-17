@@ -1,5 +1,5 @@
 #include "teqi/canvas/window.h"
-#include <fmt/color.h>
+#include "teqi/canvas/utility.h"
 
 namespace tq {
 
@@ -14,7 +14,7 @@ Window::Window(
     height_( height )
 {
     if ( ! glfwInit() ) {
-        fmt::print( "failed to initialize GLFW \n" );
+        fmt::print( fg_error, "failed to initialize GLFW \n" );
         return;
     }
 
@@ -30,7 +30,7 @@ Window::Window(
     glfwGetFramebufferSize( handle_, &screenWidth, &screenHeight );
 
     if ( ! handle_ ) {
-        fmt::print( "failed to create GLFW Window \n" );
+        fmt::print( fg_error, "failed to create GLFW Window \n" );
         glfwTerminate();
         return;
     }
@@ -45,7 +45,7 @@ Window::Window(
     glewExperimental = GL_TRUE;
 
     if ( GLEW_OK != glewInit() ) {
-        fmt::print( "failed to initialize GLEW \n" );
+        fmt::print( fg_error, "failed to initialize GLEW \n" );
         return;
     }
 
@@ -100,37 +100,20 @@ void Window::checkProperties() const
 {
     int width, height;
     glfwGetFramebufferSize( handle_, &width, &height);
-
-    fmt::print(
-        fmt::fg( fmt::color::dark_gray ),
-        "framebuffer size: ({}, {}) \n",
-        width, height
-    );
+    fmt::print( fg_subtle, "framebuffer size: ({}, {}) \n", width, height );
 
     float xscale, yscale;
     glfwGetWindowContentScale( handle_, &xscale, &yscale);
-
-    fmt::print(
-        fmt::fg( fmt::color::dark_gray ),
-        "window content scale: ({}, {}) \n",
-        xscale, yscale
-    );
+    fmt::print( fg_subtle, "window content scale: ({}, {}) \n", xscale, yscale );
 
     const GLubyte* renderer = glGetString( GL_RENDERER );
+    fmt::print( fg_subtle, "renderer: {} \n", renderer );
 
-    fmt::print(
-        fmt::fg( fmt::color::dark_gray ),
-        "renderer: {} \n",
-        renderer
-    );
+    const GLubyte* vendor = glGetString( GL_RENDERER );
+    fmt::print( fg_subtle, "vendor: {} \n", vendor );
 
     const GLubyte* version = glGetString( GL_VERSION );
-
-    fmt::print(
-        fmt::fg( fmt::color::dark_gray ),
-        "version: {} \n",
-        version
-    );
+    fmt::print( fg_subtle, "version: {} \n", version );
 }
 
 

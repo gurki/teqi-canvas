@@ -1,6 +1,6 @@
 #include "teqi/canvas/shader.h"
+#include "teqi/canvas/utility.h"
 
-#include <fmt/color.h>
 #include <fstream>
 #include <sstream>
 
@@ -10,23 +10,14 @@ namespace tq {
 ////////////////////////////////////////////////////////////////////////////////
 [[nodiscard]] std::string readFile( std::string_view path )
 {
-    fmt::print(
-        fmt::fg( fmt::color::light_sky_blue ),
-        "reading file '{}' ... \n",
-        path
-    );
+    fmt::print( "reading file '{}' ... \n", path );
 
     std::ifstream file { path.data() };
 
-    if ( ! file.is_open() )
-    {
-        fmt::print(
-            fmt::fg( fmt::color::indian_red ),
-            "failed to open file '{}' \n",
-            path
-        );
-
+    if ( ! file.is_open() ) {
+        fmt::print( fg_error, "failed to open file '{}' \n", path );
         std::fflush( stdout );
+        return {};
     }
 
     std::stringstream ss;
@@ -37,13 +28,13 @@ namespace tq {
 
 
 ////////////////////////////////////////////////////////////////////////////////
-void checkCompileError( const uint32_t shaderId )
+bool checkCompileError( const uint32_t shaderId )
 {
     int success;
     glGetShaderiv( shaderId, GL_COMPILE_STATUS, &success );
 
     if ( success ) {
-        return;
+        return true;
     }
 
     const int maxLogSize = 512;
@@ -52,13 +43,14 @@ void checkCompileError( const uint32_t shaderId )
     glGetShaderInfoLog( shaderId, maxLogSize, nullptr, infoLog );
 
     const auto msg = fmt::format(
-        fmt::fg( fmt::color::indian_red ),
-        "shader compilation error for shader {}: {}",
+        fg_error, "shader compilation error for shader {}: {}",
         shaderId, infoLog
     );
 
     fmt::print( "{}", msg );
     throw std::runtime_error { msg };
+
+    return false;
 }
 
 
@@ -78,13 +70,12 @@ Shader::Shader( const std::string& file, const Shader::Type type ) :
 
     glShaderSource( id_, 1, &sourceStr, nullptr );
     glCompileShader( id_ );
-    checkCompileError( id_ );
 
-    fmt::print(
-        fmt::fg( fmt::color::light_green ),
-        "compiled {} shader \n",
-        to_string( type_ )
-    );
+    if ( ! checkCompileError( id_ ) ) {
+        return;
+    }
+
+    fmt::print( fg_success, "compiled {} shader \n", to_string( type_ ) );
 }
 
 

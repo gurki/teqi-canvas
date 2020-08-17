@@ -43,7 +43,7 @@ inline GLuint createGeometryBuffer(
 
 
 ////////////////////////////////////////////////////////////////////////////////
-inline void drawQuad( const glm::vec2& pos, const glm::vec2& size )
+inline void drawQuad( const glm::vec2& pos, const glm::vec2& size, const float depth = 0.f )
 {
     static GLuint vao = 0, vbo = 0, ibo = 0;
     static const std::vector<uint32_t> indices = {
@@ -52,10 +52,10 @@ inline void drawQuad( const glm::vec2& pos, const glm::vec2& size )
     };
 
     const std::vector<glm::vec3> vertices = {
-        { pos.x, pos.y, 0.f },
-        { pos.x + size.x, pos.y, 0.f },
-        { pos.x + size.x, pos.y + size.y, 0.f },
-        { pos.x, pos.y + size.y, 0.f }
+        { pos.x, pos.y, depth },
+        { pos.x + size.x, pos.y, depth },
+        { pos.x + size.x, pos.y + size.y, depth },
+        { pos.x, pos.y + size.y, depth }
     };
 
     createGeometryBuffer( vertices, indices, vao, vbo, ibo );

@@ -8,6 +8,14 @@ namespace tq {
 
 
 ////////////////////////////////////////////////////////////////////////////////
+std::string tolower( const std::string& str ) {
+    std::string res;
+    std::transform( str.begin(), str.end(), std::back_inserter( res ), std::tolower );
+    return res;
+}
+
+
+////////////////////////////////////////////////////////////////////////////////
 [[nodiscard]] std::string readFile( std::string_view path )
 {
     fmt::print( "reading file '{}' ... \n", path );
@@ -75,7 +83,7 @@ Shader::Shader( const std::string& file, const Shader::Type type ) :
         return;
     }
 
-    fmt::print( fg_success, "compiled {} shader \n", to_string( type_ ) );
+    fmt::print( fg_success, "compiled {} shader '{}' \n", tolower( to_string( type_ ) ), file );
 }
 
 

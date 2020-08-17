@@ -16,7 +16,8 @@ int main( int argc, char* argv[] )
             window.close();
         }
 
-        shader.setVec2( "relMousePos", mouse.relativeCursorPosition() );
+        shader.setVec2( "mouseRel", mouse.relativeCursorPosition() );
+        shader.setBool( "mouseDown", mouse.pressed( tq::Mouse::Button::Left ) );
         tq::drawQuad( { -1, -1 }, { 2, 2 } );
 
         window.finishFrame();

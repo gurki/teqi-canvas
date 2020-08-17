@@ -1,10 +1,11 @@
 #pragma once
 
+#include <glm/vec2.hpp>
+#include <glm/vec3.hpp>
+
 #include <gl/glew.h>
 #include <glfw/glfw3.h>
 
-#include <glm/vec2.hpp>
-#include <glm/vec3.hpp>
 #include <string_view>
 #include <functional>
 

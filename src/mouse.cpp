@@ -42,14 +42,14 @@ glm::vec2 Mouse::relativeCursorPosition() const {
 
 
 ////////////////////////////////////////////////////////////////////////////////
-bool Mouse::pressed( const uint32_t button ) const {
-    return glfwGetMouseButton( window_->handle(), button ) == GLFW_PRESS;
+bool Mouse::pressed( const Button button ) const {
+    return glfwGetMouseButton( window_->handle(), GLuint( button ) ) == GLFW_PRESS;
 }
 
 
 ////////////////////////////////////////////////////////////////////////////////
-bool Mouse::released( const uint32_t button ) const {
-    return glfwGetMouseButton( window_->handle(), button ) == GLFW_RELEASE;
+bool Mouse::released( const Button button ) const {
+    return glfwGetMouseButton( window_->handle(), GLuint( button ) ) == GLFW_RELEASE;
 }
 
 

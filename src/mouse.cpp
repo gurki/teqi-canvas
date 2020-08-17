@@ -36,6 +36,12 @@ glm::vec2 Mouse::cursorPosition() const {
 
 
 ////////////////////////////////////////////////////////////////////////////////
+glm::vec2 Mouse::relativeCursorPosition() const {
+    return cursorPosition() / window_->size();
+}
+
+
+////////////////////////////////////////////////////////////////////////////////
 bool Mouse::pressed( const uint32_t button ) const {
     return glfwGetMouseButton( window_->handle(), button ) == GLFW_PRESS;
 }

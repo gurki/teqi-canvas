@@ -16,7 +16,8 @@ class Mouse
         void lock() const;
         void unlock() const;
 
-        [[nodiscard]] glm::vec2 cursorPosition() const;
+        [[nodiscard]] glm::vec2 cursorPosition() const; //  top-left origin
+        [[nodiscard]] glm::vec2 relativeCursorPosition() const; //  scaled to [0, 1], relative to current window dimensions
         [[nodiscard]] bool pressed( const uint32_t button ) const;
         [[nodiscard]] bool released( const uint32_t button ) const;
 

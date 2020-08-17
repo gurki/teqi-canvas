@@ -4,6 +4,7 @@
 #include <glfw/glfw3.h>
 
 #include <glm/vec2.hpp>
+#include <glm/vec3.hpp>
 #include <string_view>
 #include <functional>
 
@@ -31,6 +32,7 @@ class Window
         void close() const;
         void finishFrame() const;
         void setTitle( const std::string& title ) const;
+        void clear( const glm::vec3& color ) const;
 
         GLFWwindow* handle() const { return handle_; }
         [[nodiscard]] uint32_t width() const { return width_; }

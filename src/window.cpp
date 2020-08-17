@@ -106,14 +106,17 @@ void Window::checkProperties() const
     glfwGetWindowContentScale( handle_, &xscale, &yscale);
     fmt::print( fg_subtle, "window content scale: ({}, {}) \n", xscale, yscale );
 
+    const GLubyte* vendor = glGetString( GL_VENDOR );
+    fmt::print( fg_subtle, "vendor: {} \n", vendor );
+
     const GLubyte* renderer = glGetString( GL_RENDERER );
     fmt::print( fg_subtle, "renderer: {} \n", renderer );
 
-    const GLubyte* vendor = glGetString( GL_RENDERER );
-    fmt::print( fg_subtle, "vendor: {} \n", vendor );
-
     const GLubyte* version = glGetString( GL_VERSION );
-    fmt::print( fg_subtle, "version: {} \n", version );
+    fmt::print( fg_subtle, "opengl version: {} \n", version );
+
+    const GLubyte* glsl = glGetString( GL_SHADING_LANGUAGE_VERSION );
+    fmt::print( fg_subtle, "glsl version: {} \n", glsl );
 }
 
 

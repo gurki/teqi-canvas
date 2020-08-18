@@ -12,10 +12,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Replace glfw button defines with more accessible enum wrapper
 
 ### Changed
-- Replace unit quad utility by simplified `drawQuad()` call
+- Simplify `drawQuad(...)` / `drawUnitQuad()` calls
 - Add default output colors to utility
 - Make shader compile progress info more specific
-- Updated to a more fun shader example
+- Update to a more fun shader example
 
 ### Fixed
 - Don't show success messages after void asserts

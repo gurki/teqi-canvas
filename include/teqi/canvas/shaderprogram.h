@@ -34,8 +34,8 @@ struct ShaderProgram
 
     bool bindUniformBlock( const std::string& name, const uint32_t location ) const;
 
-    [[nodiscard]] uint32_t id() const { return id_; }
-    [[nodiscard]] bool valid() const { return id_ > 0; }
+    uint32_t id() const { return id_; }
+    bool valid() const { return id_ > 0; }
 
     ShaderProgram( const ShaderProgram& ) = delete;
     ShaderProgram& operator=( const ShaderProgram& ) = delete;

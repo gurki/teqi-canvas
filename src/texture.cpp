@@ -37,7 +37,8 @@ Texture::Texture(
 
 
 ////////////////////////////////////////////////////////////////////////////////
-void Texture::use() const {
+void Texture::use( const uint8_t unit ) const {
+    glActiveTexture( GL_TEXTURE0 + unit );
     glBindTexture( GL_TEXTURE_2D, id_ );
 }
 
@@ -178,7 +179,12 @@ void TextureManager::insert( const std::string& key, const uint32_t id )
 
 
 ////////////////////////////////////////////////////////////////////////////////
-int TextureManager::retain( const uint32_t id ) {
+int TextureManager::retain( const uint32_t id )
+{
+    if ( id == 0 ) {
+        return -1;
+    }
+
     return ( ++referenceCounts_[ id ] );
 }
 
@@ -186,6 +192,10 @@ int TextureManager::retain( const uint32_t id ) {
 ////////////////////////////////////////////////////////////////////////////////
 int TextureManager::release( const uint32_t id )
 {
+    if ( id == 0 ) {
+        return -1;
+    }
+
     if ( referenceCounts_.find( id ) == referenceCounts_.end() ) {
         return 0;
     }

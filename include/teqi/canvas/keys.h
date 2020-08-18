@@ -13,8 +13,8 @@ class Keys
 
         Keys( tq::Window* window );
 
-        [[nodiscard]] bool pressed( const uint32_t key ) const;
-        [[nodiscard]] bool released( const uint32_t key ) const;
+        bool pressed( const uint32_t key ) const;
+        bool released( const uint32_t key ) const;
 
     private:
 

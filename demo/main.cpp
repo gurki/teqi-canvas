@@ -7,7 +7,10 @@ int main( int argc, char* argv[] )
     tq::Keys keys( &window );
     tq::Mouse mouse( &window );
 
-    tq::ShaderProgram shader( TQ_CANVAS_ROOT "res/shader/", { "flat.vs", "flat.fs" } );
+    tq::Texture texture( TQ_CANVAS_ROOT "res/textures/leaf.jpg" );
+    tq::ShaderProgram shader( TQ_CANVAS_ROOT "res/shaders/", { "flat.vs", "flat.fs" } );
+
+    texture.use();
     shader.use();
 
     while ( ! window.aboutToClose() )
@@ -18,7 +21,7 @@ int main( int argc, char* argv[] )
 
         shader.setVec2( "mouseRel", mouse.relativeCursorPosition() );
         shader.setBool( "mouseDown", mouse.pressed( tq::Mouse::Button::Left ) );
-        tq::drawQuad( { -1, -1 }, { 2, 2 } );
+        tq::drawUnitQuad();
 
         window.finishFrame();
     }

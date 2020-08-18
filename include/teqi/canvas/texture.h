@@ -24,7 +24,7 @@ struct Texture
     bool valid() const { return id_ != 0; }
     uint32_t id() const { return id_; }
 
-    void use() const;
+    void use( const uint8_t unit = 0 ) const;
 
     Texture( const Texture& ) noexcept;
     Texture& operator=( const Texture& ) noexcept;
@@ -44,6 +44,14 @@ struct Texture
 
         uint32_t id_ = 0;
 };
+
+// Texture loadTexture( const std::string& filepath );
+// Texture createTexture(
+//     const uint32_t width,
+//     const uint32_t height,
+//     const uint8_t numChannels,
+//     const uint8_t* data
+// );
 
 
 struct TextureManager

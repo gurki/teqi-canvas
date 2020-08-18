@@ -17,8 +17,8 @@ class Window
     public:
 
         Window(
-            const GLint width,
-            const GLint height,
+            const uint32_t width,
+            const uint32_t height,
             std::string_view title = "window",
             const uint8_t samples = 8
         );
@@ -36,10 +36,10 @@ class Window
         void clear( const glm::vec3& color ) const;
 
         GLFWwindow* handle() const { return handle_; }
-        [[nodiscard]] uint32_t width() const { return width_; }
-        [[nodiscard]] uint32_t height() const { return height_; }
-        [[nodiscard]] glm::vec2 size() const { return { width_, height_ }; }
-        [[nodiscard]] bool aboutToClose() const;
+        uint32_t width() const { return width_; }
+        uint32_t height() const { return height_; }
+        glm::vec2 size() const { return { width_, height_ }; }
+        bool aboutToClose() const;
 
         using mouse_callback_t = std::function<void( const double, const double )>;
         using scroll_callback_t = std::function<void( const double, const double )>;

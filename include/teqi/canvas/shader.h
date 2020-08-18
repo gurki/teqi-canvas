@@ -22,8 +22,8 @@ struct Shader
     Shader( const std::string& file, const Type = Type::Invalid );
     ~Shader();
 
-    [[nodiscard]] uint32_t id() const { return id_; }
-    [[nodiscard]] bool valid() const { return id_ != 0; }
+    uint32_t id() const { return id_; }
+    bool valid() const { return id_ != 0; }
 
     Shader( const Shader& ) = delete;
     Shader& operator=( const Shader& ) = delete;

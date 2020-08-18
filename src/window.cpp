@@ -6,8 +6,8 @@ namespace tq {
 
 ////////////////////////////////////////////////////////////////////////////////
 Window::Window(
-    const GLint width,
-    const GLint height,
+    const uint32_t width,
+    const uint32_t height,
     std::string_view title,
     const uint8_t samples ) :
     width_( width ),

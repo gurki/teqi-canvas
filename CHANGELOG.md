@@ -6,6 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ## [unreleased]
 
 ### Added
+- Add texture support
 - Add relative mouse cursor position query
 - Display vendor and supported GLSL version
 - Replace glfw button defines with more accessible enum wrapper

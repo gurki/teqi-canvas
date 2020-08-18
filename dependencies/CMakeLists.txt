@@ -32,5 +32,3 @@ set( MODULE_VERSION glew-cmake-2.1.0 )
 
 add_definitions( -DGLEW_STATIC )
 include ( FetchModule.cmake )
-
-

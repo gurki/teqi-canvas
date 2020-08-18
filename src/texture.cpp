@@ -12,8 +12,8 @@ namespace tq {
 
 
 ////////////////////////////////////////////////////////////////////////////////
-Texture::Texture( const std::string& filepath ) {
-    fromFile( filepath );
+Texture::Texture( const std::string& filepath, const bool mipmaps ) {
+    fromFile( filepath, mipmaps );
 }
 
 
@@ -30,9 +30,10 @@ Texture::Texture(
     const uint32_t width,
     const uint32_t height,
     const uint8_t numChannels,
-    const uint8_t* data )
+    const uint8_t* data,
+    const bool mipmaps )
 {
-    fromData( width, height, numChannels, data );
+    fromData( width, height, numChannels, data, mipmaps );
 }
 
 
@@ -44,7 +45,7 @@ void Texture::use( const uint8_t unit ) const {
 
 
 ////////////////////////////////////////////////////////////////////////////////
-bool Texture::fromFile( const std::string& filepath )
+bool Texture::fromFile( const std::string& filepath, const bool mipmaps )
 {
     if ( const uint32_t id = TextureManager::find( filepath.data() ) )
     {
@@ -67,7 +68,7 @@ bool Texture::fromFile( const std::string& filepath )
         return false;
     }
 
-    fromData( width, height, numChannels, data );
+    fromData( width, height, numChannels, data, mipmaps );
     stbi_image_free( data );
 
     TextureManager::insert( filepath.data(), id_ );
@@ -80,7 +81,8 @@ bool Texture::fromData(
     const uint32_t width,
     const uint32_t height,
     const uint8_t numChannels,
-    const uint8_t* data )
+    const uint8_t* data,
+    const bool mipmaps )
 {
     fmt::print(
         "loading texture from data of size ({}, {}) with {} channels ... \n",
@@ -100,13 +102,15 @@ bool Texture::fromData(
 
     glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT );
     glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT );
-    glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR );
+    glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, mipmaps ? GL_LINEAR_MIPMAP_LINEAR : GL_LINEAR );
     glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
 
     glTexImage2D( GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data );
 
-    glHint( GL_GENERATE_MIPMAP_HINT, GL_NICEST );
-    glGenerateMipmap( GL_TEXTURE_2D );
+    if ( mipmaps ) {
+        glHint( GL_GENERATE_MIPMAP_HINT, GL_NICEST );
+        glGenerateMipmap( GL_TEXTURE_2D );
+    }
 
     TextureManager::retain( id_ );
     return true;

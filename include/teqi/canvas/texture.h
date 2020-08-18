@@ -10,13 +10,14 @@ namespace tq {
 struct Texture
 {
     Texture() {};
-    Texture( const std::string& filepath );
+    Texture( const std::string& filepath, const bool mipmaps = true );
     Texture( const uint32_t id );
     Texture(
         const uint32_t width,
         const uint32_t height,
         const uint8_t numChannels,
-        const uint8_t* data
+        const uint8_t* data,
+        const bool mipmaps = true
     );
 
     ~Texture();
@@ -33,13 +34,14 @@ struct Texture
 
     private:
 
-        bool fromFile( const std::string& filepath );
+        bool fromFile( const std::string& filepath, const bool mipmaps );
 
         bool fromData(
             const uint32_t width,
             const uint32_t height,
             const uint8_t numChannels,
-            const uint8_t* data
+            const uint8_t* data,
+            const bool mipmaps
         );
 
         uint32_t id_ = 0;
